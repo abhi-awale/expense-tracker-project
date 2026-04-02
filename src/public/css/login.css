@@ -95,8 +95,8 @@ body::after {
 }
 
 .card {
-  width: 350px;
-  height: 420px;
+  width: 450px;
+  height: 600px;
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
