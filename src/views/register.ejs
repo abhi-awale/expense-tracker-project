@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/login.css" rel="stylesheet">
+    <title>Register</title>
+</head>
+<body>
+<div class="blob blob1" data-depth="20"></div>
+<div class="blob blob2" data-depth="40"></div>
+<div class="blob blob3" data-depth="60"></div>
+
+<div class="wrapper">
+  <div class="card" id="card">
+
+    <!-- Signup -->
+    <div class="face front">
+      <h2>Sign Up</h2>
+      <form>
+        <input type="text" placeholder="Name" required />
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required />
+        <button type="submit">Register</button>
+      </form>
+
+      <p>
+        Already have an account?
+        <span onclick="window.location='/login'">Login</span>
+      </p>
+    </div>
+
+    <!-- Login -->
+    <!-- <div class="face front">
+      <h2>Login</h2>
+      <form>
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required />
+        <button type="submit">Login</button>
+      </form>
+
+      <p>
+        Not registered?
+        <span onclick="window.location='/register'">Register here</span>
+      </p>
+    </div> -->
+
+  </div>
+</div>
+
+<script src="/js/register.js">
+</script>
+</body>
+</html>
