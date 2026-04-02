@@ -1,6 +1,13 @@
 const app = require('./src/app');
-const {PORT} = require('./src/config/env.config');
+const {port} = require('./src/config/env.config');
+const db = require('./src/config/db.config');
 
-app.listen(PORT, () => {
-    console.log(`Server started at port ${PORT}`);
-});
+db.sync()
+    .then((result) => {
+        app.listen(port, () => {
+            console.log(`Server started at port ${port}`);
+        });
+    })
+    .catch((err) => {
+        console.log('Error : ' , err);
+    });
