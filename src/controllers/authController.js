@@ -2,6 +2,7 @@ const { User } = require('../models');
 const httpCode = require('../utils/statusCodes');
 const response = require('../utils/response');
 const {registerSchema} = require('../validators/auth.validate');
+const {hashPassword} = require('../utils/hash');
 
 async function create(req, res) {
     try {
@@ -19,8 +20,13 @@ async function create(req, res) {
             return response.error(res, 'User already exists!', httpCode.UNPROCESSABLE_ENTITY_422)
         }
 
+        const hashedPassword = await hashPassword(value.password);
+
         await User.create({
-            firstName, lastName, email, password
+            firstName : value.firstName, 
+            lastName : value.lastName, 
+            email : value.email, 
+            password : hashedPassword
         });
 
         return response.success(res, 'User created successfully!', httpCode.RESOURCE_CREATED_201);
