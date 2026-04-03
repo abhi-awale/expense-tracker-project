@@ -1,24 +1,26 @@
 const { User } = require('../models');
+const httpCode = require('../utils/statusCodes');
+const response = require('../utils/response');
 
 async function create(req, res) {
-    const {firstName, lastName, email, password} = req.body;
+    const { firstName, lastName, email, password } = req.body;
 
     try {
+        const user = await User.findOne({ where: { email} });
+
+        if (user) {
+            return response.error(res, 'User already exists!', httpCode.UNPROCESSABLE_ENTITY_422)
+        }
+
         await User.create({
             firstName, lastName, email, password
         });
 
-        return res.status(201).json({
-            success : true,
-            message : "User created successfully!"
-        });
-        
-    } catch(err) {
-        console.log(err);
-        return res.status(500).json({
-            success : false,
-            message : "User creation failed!"
-        });
+        return response.success(res, 'User created successfully!', httpCode.RESOURCE_CREATED_201);
+
+    } catch (err) {
+
+        return response.error(res, 'User creation failed!', httpCode.INTERNAL_ERROR_500);
     }
 
 }
