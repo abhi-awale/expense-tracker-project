@@ -6,7 +6,7 @@ async function create(req, res) {
     const { firstName, lastName, email, password } = req.body;
 
     try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ where: { email} });
 
         if (user) {
             return response.error(res, 'User already exists!', httpCode.UNPROCESSABLE_ENTITY_422)
