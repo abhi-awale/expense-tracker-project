@@ -1,19 +1,32 @@
 const { User } = require('../models');
 const httpCode = require('../utils/statusCodes');
 const response = require('../utils/response');
+const {registerSchema} = require('../validators/auth.validate');
+const {hashPassword} = require('../utils/hash');
 
 async function create(req, res) {
-    const { firstName, lastName, email, password } = req.body;
-
     try {
-        const user = await User.findOne({ where: { email} });
+        const {error, value} = registerSchema.validate(req.body, {
+            stripUnknown:true
+        });
+
+        if(error) {
+            return response.error(res, error.message, httpCode.UNPROCESSABLE_ENTITY_422)
+        }
+
+        const user = await User.findOne({ where: { email : value.email } });
 
         if (user) {
             return response.error(res, 'User already exists!', httpCode.UNPROCESSABLE_ENTITY_422)
         }
 
+        const hashedPassword = await hashPassword(value.password);
+
         await User.create({
-            firstName, lastName, email, password
+            firstName : value.firstName, 
+            lastName : value.lastName, 
+            email : value.email, 
+            password : hashedPassword
         });
 
         return response.success(res, 'User created successfully!', httpCode.RESOURCE_CREATED_201);
