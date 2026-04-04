@@ -43,6 +43,10 @@ const User = db.define('User',{
     lastLoginAt : {
         type: DataTypes.DATE,
         allowNull : true
+    },
+    refreshToken: {
+      type: DataTypes.TEXT,
+      allowNull: true
     }
 }, {
     tableName:"users",
