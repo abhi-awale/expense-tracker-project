@@ -47,7 +47,13 @@ const User = db.define('User',{
     refreshToken: {
       type: DataTypes.TEXT,
       allowNull: true
-    }
+    },
+    emailVerificationToken: {
+        type: DataTypes.STRING
+    },
+    emailVerificationExpires: {
+        type: DataTypes.DATE
+    } 
 }, {
     tableName:"users",
     paranoid : true,

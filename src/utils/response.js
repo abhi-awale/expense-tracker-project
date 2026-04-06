@@ -30,8 +30,13 @@ function paginated(res, message, data, pagination, statusCode = httpCode.OK_200)
   });
 }
 
+function view(res, file, data=null) {
+  return res.render(file, data);
+}
+
 module.exports = {
     success,
     error,
-    paginated
+    paginated,
+    view
 }
