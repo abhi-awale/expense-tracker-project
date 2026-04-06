@@ -1,6 +1,11 @@
 const httpCode = require('../utils/statusCodes');
 
-function success(res, message, statusCode = httpCode.OK_200, data = null) {
+function success(res, message, statusCode = httpCode.OK_200, data = null, cookies=[]) {
+
+  cookies.forEach(({ name, value, options }) => {
+    res.cookie(name, value, options);
+  });
+
   return res.status(statusCode).json({
     success: true,
     message,

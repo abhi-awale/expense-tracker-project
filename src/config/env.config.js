@@ -6,5 +6,11 @@ module.exports = {
         port : process.env.DB_PORT,
         user : process.env.DB_USER,
         password : process.env.DB_PASSWORD
+    },
+    jwt : {
+        accessTokenSecret : process.env.ACCESS_TOKEN_SECRET,
+        refreshTokenSecret : process.env.REFRESH_TOKEN_SECRET,
+        accessTokenExpiry : process.env.ACCESS_TOKEN_EXPIRES || "15m",
+        refreshTokenExpiry : process.env.REFRESH_TOKEN_EXPIRES || "7d",
     }
 }
