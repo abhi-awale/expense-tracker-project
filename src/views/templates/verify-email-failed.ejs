@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+    <link href="/css/verify-email.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="card">
+        <div id="icon" class="icon">
+            <div class="cross">❌</div>
+        </div>
+
+        <h2 id="title">Verification Failed</h2>
+        <p id="message">
+            <%= message %>
+        </p>
+
+        <% if(id) { %>
+        <span class="resend" id="resend-link" data-user-id="<%= id || '' %>">
+            Resend Email
+        </span>
+        <% } %>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="/js/resend-email.js"></script>
+</body>
+
+</html>
