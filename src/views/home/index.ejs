@@ -1,0 +1,322 @@
+<section class="landing-shell overflow-hidden">
+  <section class="landing-hero p-4 p-lg-5 mb-5">
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-7">
+        <span class="landing-kicker">ExpensePilot</span>
+        <h1 class="display-3 fw-bold mt-3 mb-3">Your money story, organized into decisions you can actually trust.</h1>
+        <p class="lead text-white-50 mb-4">
+          Track expenses, monitor category-level movement, export polished reports, and keep personal finance data protected with production-ready security.
+        </p>
+        <div class="d-flex flex-wrap gap-3">
+          <% if (currentUser) { %>
+            <a href="/dashboard" class="btn btn-light btn-lg">Open dashboard</a>
+          <% } else { %>
+            <a href="/auth/register" class="btn btn-light btn-lg">Start free</a>
+            <a href="#pricing" class="btn btn-outline-light btn-lg">See pricing</a>
+          <% } %>
+        </div>
+        <div class="landing-badges mt-4">
+          <span>JWT auth</span>
+          <span>CSRF + XSS defense</span>
+          <span>PDF & Excel exports</span>
+        </div>
+        <div class="landing-stat-row mt-4">
+          <div class="landing-stat-card">
+            <strong>3 min</strong>
+            <span>to set up your first tracking workflow</span>
+          </div>
+          <div class="landing-stat-card">
+            <strong>100%</strong>
+            <span>backend-generated premium exports</span>
+          </div>
+          <div class="landing-stat-card">
+            <strong>24/7</strong>
+            <span>clarity on spending patterns and trends</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="landing-panel">
+          <div class="landing-preview">
+            <div class="landing-preview-top">
+              <span class="landing-dot"></span>
+              <span class="landing-dot"></span>
+              <span class="landing-dot"></span>
+            </div>
+            <div class="landing-preview-grid">
+              <div class="landing-preview-card landing-preview-card-primary">
+                <small>This month</small>
+                <strong>INR 18,450</strong>
+                <span>12% lower than last month</span>
+              </div>
+              <div class="landing-preview-card">
+                <small>Top category</small>
+                <strong>Food & Dining</strong>
+                <span>32% of all recorded spend</span>
+              </div>
+              <div class="landing-preview-chart">
+                <div style="height: 48%;"></div>
+                <div style="height: 72%;"></div>
+                <div style="height: 39%;"></div>
+                <div style="height: 88%;"></div>
+                <div style="height: 62%;"></div>
+                <div style="height: 95%;"></div>
+              </div>
+              <div class="landing-preview-list">
+                <div><span>Groceries</span><strong>INR 4,820</strong></div>
+                <div><span>Transport</span><strong>INR 2,140</strong></div>
+                <div><span>Utilities</span><strong>INR 1,750</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-logo-strip mb-5">
+    <span>Secure defaults</span>
+    <span>Premium reports</span>
+    <span>Cashfree billing</span>
+    <span>Category insights</span>
+    <span>Backend exports</span>
+  </section>
+
+  <section id="how-it-works" class="landing-section mb-5">
+    <div class="landing-section-head">
+      <span class="landing-section-label">How it works</span>
+      <h2 class="display-6 fw-bold mb-2">Four simple steps from first login to export-ready reporting.</h2>
+      <p class="text-secondary mb-0">The flow stays easy for individuals while still feeling solid enough for real budgeting discipline.</p>
+    </div>
+    <div class="row g-4 mt-1">
+      <div class="col-md-6 col-xl-3">
+        <div class="landing-step-card h-100">
+          <div class="landing-step-number">01</div>
+          <h3 class="h5">Create your account</h3>
+          <p class="mb-0 text-secondary">Sign up, log in with JWT-backed auth, and keep access secure with password reset and account controls.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-xl-3">
+        <div class="landing-step-card h-100">
+          <div class="landing-step-number">02</div>
+          <h3 class="h5">Capture every spend</h3>
+          <p class="mb-0 text-secondary">Add expenses, tag them into categories, and filter by search, month, date range, or sort order.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-xl-3">
+        <div class="landing-step-card h-100">
+          <div class="landing-step-number">03</div>
+          <h3 class="h5">Read the signals</h3>
+          <p class="mb-0 text-secondary">Use reports and dashboard trends to see concentration, pace of spend, and daily movement patterns.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-xl-3">
+        <div class="landing-step-card h-100">
+          <div class="landing-step-number">04</div>
+          <h3 class="h5">Export professional records</h3>
+          <p class="mb-0 text-secondary">Upgrade once to generate polished PDF and Excel outputs directly from backend APIs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="landing-section mb-5">
+    <div class="landing-section-head">
+      <span class="landing-section-label">Features</span>
+      <h2 class="display-6 fw-bold mb-2">A practical finance tool with the product depth to grow with you.</h2>
+    </div>
+    <div class="row g-4 mt-1">
+      <div class="col-lg-4">
+        <div class="landing-feature-card h-100">
+          <h3 class="h5">Fast expense management</h3>
+          <p class="text-secondary">Create, edit, delete, sort, paginate, and search records without leaving the flow.</p>
+          <ul class="landing-feature-list">
+            <li>Expense CRUD with category mapping</li>
+            <li>Date-range and month filters</li>
+            <li>Pagination-ready listing</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="landing-feature-card h-100">
+          <h3 class="h5">Insightful reporting</h3>
+          <p class="text-secondary">Spot daily trends and high-spend categories quickly with visual summaries and export support.</p>
+          <ul class="landing-feature-list">
+            <li>Dashboard + report insights</li>
+            <li>Category and trend analysis</li>
+            <li>Professional PDF and Excel exports</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="landing-feature-card h-100">
+          <h3 class="h5">Security-first implementation</h3>
+          <p class="text-secondary">Built with guardrails expected from a serious web app, not just a demo project.</p>
+          <ul class="landing-feature-list">
+            <li>Helmet CSP and header hardening</li>
+            <li>CSRF validation and XSS sanitization</li>
+            <li>JWT auth with protected routes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-highlight mb-5">
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <span class="landing-section-label">Why teams and individuals like it</span>
+        <h2 class="display-6 fw-bold mt-2 mb-3">The interface stays approachable while the backend does the heavier lifting.</h2>
+        <p class="text-secondary mb-4">ExpensePilot keeps the UI fast and familiar, while exports, reporting, and payment-gated premium capabilities stay enforced on the server side.</p>
+        <div class="landing-check-grid">
+          <div>Server-side export generation</div>
+          <div>Paid feature enforcement</div>
+          <div>Cashfree upgrade flow</div>
+          <div>Custom categories for premium users</div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="landing-story-card">
+          <div class="landing-story-line">
+            <span>Morning coffee</span>
+            <strong>Logged instantly</strong>
+          </div>
+          <div class="landing-story-line">
+            <span>Mid-month review</span>
+            <strong>Trend spike detected</strong>
+          </div>
+          <div class="landing-story-line">
+            <span>Month-end summary</span>
+            <strong>Exported to PDF & Excel</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials" class="landing-section mb-5">
+    <div class="landing-section-head">
+      <span class="landing-section-label">Testimonials</span>
+      <h2 class="display-6 fw-bold mb-2">Built to feel dependable in everyday use.</h2>
+    </div>
+    <div class="row g-4 mt-1">
+      <div class="col-lg-4">
+        <blockquote class="landing-testimonial h-100">
+          <p>“I wanted something cleaner than a spreadsheet but not bloated. ExpensePilot gives me structure, filters, and exports without friction.”</p>
+          <footer>
+            <strong>Riya S.</strong>
+            <span>Freelance designer</span>
+          </footer>
+        </blockquote>
+      </div>
+      <div class="col-lg-4">
+        <blockquote class="landing-testimonial h-100">
+          <p>“The backend-generated reports feel surprisingly professional. It looks like a product meant for real financial review, not just logging expenses.”</p>
+          <footer>
+            <strong>Manav P.</strong>
+            <span>Operations lead</span>
+          </footer>
+        </blockquote>
+      </div>
+      <div class="col-lg-4">
+        <blockquote class="landing-testimonial h-100">
+          <p>“What sold me was the security posture. JWT auth, CSRF protection, sanitization, and clear premium gating made it feel trustworthy.”</p>
+          <footer>
+            <strong>Neha K.</strong>
+            <span>Independent consultant</span>
+          </footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="landing-section mb-5">
+    <div class="landing-section-head">
+      <span class="landing-section-label">Pricing</span>
+      <h2 class="display-6 fw-bold mb-2">Start free, upgrade once when you need premium workflows.</h2>
+    </div>
+    <div class="row g-4 mt-1">
+      <div class="col-lg-6">
+        <div class="landing-pricing-card h-100">
+          <div class="landing-plan-title">Starter</div>
+          <div class="landing-plan-price">INR 0</div>
+          <p class="text-secondary">Perfect for tracking daily expenses and understanding the basics of your spending behavior.</p>
+          <ul class="landing-feature-list">
+            <li>JWT-based account access</li>
+            <li>Expense and default category management</li>
+            <li>Dashboard and report insights</li>
+            <li>Filtering, sorting, and pagination</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="landing-pricing-card landing-pricing-card-featured h-100">
+          <div class="landing-plan-badge">Most popular</div>
+          <div class="landing-plan-title">Premium</div>
+          <div class="landing-plan-price">INR <%= env.premiumPrice %></div>
+          <p class="text-white-50">A one-time upgrade for users who want exports, premium category control, and professional reporting outputs.</p>
+          <ul class="landing-feature-list landing-feature-list-light">
+            <li>Custom categories</li>
+            <li>Expense export to PDF and Excel</li>
+            <li>Report export to PDF and Excel</li>
+            <li>Cashfree-powered checkout flow</li>
+          </ul>
+          <% if (currentUser) { %>
+            <a href="/account" class="btn btn-light mt-3">Manage premium</a>
+          <% } else { %>
+            <a href="/auth/register" class="btn btn-light mt-3">Create account</a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-cta mb-5">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-8">
+        <span class="landing-section-label">Ready to start</span>
+        <h2 class="display-6 fw-bold mt-2 mb-2">Build a clearer relationship with your spending.</h2>
+        <p class="text-secondary mb-0">Start with fast daily tracking, then unlock premium exports the moment you need presentation-ready outputs.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <% if (currentUser) { %>
+          <a href="/dashboard" class="btn btn-primary btn-lg">Go to dashboard</a>
+        <% } else { %>
+          <a href="/auth/register" class="btn btn-primary btn-lg">Create free account</a>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <footer class="landing-footer">
+    <div class="row g-4">
+      <div class="col-lg-5">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <img src="/brand/logo.svg" alt="ExpensePilot logo" class="brand-logo" />
+          <strong class="h5 mb-0">ExpensePilot</strong>
+        </div>
+        <p class="text-secondary mb-0">A secure expense tracking experience built with Node.js, Express, MySQL, Sequelize, EJS, Bootstrap, axios, and backend-first reporting.</p>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h3 class="h6 fw-bold">Product</h3>
+        <ul class="landing-footer-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#how-it-works">How it works</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h3 class="h6 fw-bold">Access</h3>
+        <ul class="landing-footer-links">
+          <li><a href="/auth/login">Login</a></li>
+          <li><a href="/auth/register">Register</a></li>
+          <li><a href="/auth/forgot-password">Forgot password</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3">
+        <h3 class="h6 fw-bold">Built for clarity</h3>
+        <p class="text-secondary mb-0 small">Professional exports, premium controls, and security-conscious defaults for personal expense tracking that feels production-ready.</p>
+      </div>
+    </div>
+  </footer>
+</section>

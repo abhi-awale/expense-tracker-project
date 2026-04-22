@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-dark app-nav mb-4">
+  <div class="container">
+    <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/">
+      <img src="/brand/logo.svg" alt="ExpensePilot logo" class="brand-logo" />
+      <span>ExpensePilot</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <% if (currentUser) { %>
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="/expenses">Expenses</a></li>
+          <li class="nav-item"><a class="nav-link" href="/categories">Categories</a></li>
+          <li class="nav-item"><a class="nav-link" href="/reports">Reports</a></li>
+          <li class="nav-item"><a class="nav-link" href="/account">Account</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-3">
+          <span class="text-light small">Signed in as <strong><%= currentUser.name %></strong></span>
+          <form method="post" action="/auth/logout">
+            <%- include('./csrf-field') %>
+            <button type="submit" class="btn btn-outline-light btn-sm">Logout</button>
+          </form>
+        </div>
+      <% } else { %>
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="/#how-it-works">How it works</a></li>
+          <li class="nav-item"><a class="nav-link" href="/#features">Features</a></li>
+          <li class="nav-item"><a class="nav-link" href="/#testimonials">Testimonials</a></li>
+          <li class="nav-item"><a class="nav-link" href="/#pricing">Pricing</a></li>
+        </ul>
+        <div class="d-flex gap-2 ms-lg-3">
+          <a class="btn btn-outline-light btn-sm" href="/auth/login">Login</a>
+          <a class="btn btn-light btn-sm" href="/auth/register">Get started</a>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</nav>

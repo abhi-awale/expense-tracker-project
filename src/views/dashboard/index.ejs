@@ -1,0 +1,93 @@
+<section class="hero-panel p-4 p-lg-5 mb-4">
+  <div class="row g-4 align-items-center">
+    <div class="col-lg-7">
+      <span class="badge rounded-pill text-bg-light mb-3">Dashboard</span>
+      <h1 class="display-6 fw-bold mb-3">Keep spending visible, predictable, and easy to act on.</h1>
+      <p class="mb-0 text-white-50">Track daily expenses, group them by category, and spot overspending before it compounds.</p>
+    </div>
+    <div class="col-lg-5">
+      <div class="row g-3">
+        <div class="col-6">
+          <div class="metric-card">
+            <span>This month</span>
+            <strong><%= helpers.formatCurrency(summary.monthlyTotal) %></strong>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="metric-card">
+            <span>Entries</span>
+            <strong><%= summary.monthlyCount %></strong>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="metric-card">
+            <span>Average expense</span>
+            <strong><%= helpers.formatCurrency(summary.averageExpense) %></strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="row g-4">
+  <div class="col-lg-7">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="h5 mb-0">Recent expenses</h2>
+          <a href="/expenses" class="btn btn-sm btn-outline-primary">Manage</a>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-middle">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th class="text-end">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (summary.recentExpenses.length === 0) { %>
+                <tr><td colspan="4" class="text-center text-secondary py-4">No expenses yet. Add your first one in the expenses module.</td></tr>
+              <% } %>
+              <% summary.recentExpenses.forEach((expense) => { %>
+                <tr>
+                  <td><strong><%= expense.title %></strong></td>
+                  <td><span class="badge text-bg-light"><%= expense.Category.name %></span></td>
+                  <td><%= expense.expenseDate %></td>
+                  <td class="text-end fw-semibold"><%= helpers.formatCurrency(expense.amount) %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-5">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="h5 mb-0">Top categories</h2>
+          <a href="/reports" class="btn btn-sm btn-outline-primary">View reports</a>
+        </div>
+        <div class="vstack gap-3">
+          <% if (summary.topCategories.length === 0) { %>
+            <p class="text-secondary mb-0">No category spend data yet.</p>
+          <% } %>
+          <% summary.topCategories.forEach((category) => { %>
+            <div class="category-summary">
+              <div class="d-flex justify-content-between">
+                <strong><%= category.name %></strong>
+                <span><%= helpers.formatCurrency(category.totalAmount) %></span>
+              </div>
+              <small class="text-secondary"><%= category.entries %> entries this month</small>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

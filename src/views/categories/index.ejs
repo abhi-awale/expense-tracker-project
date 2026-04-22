@@ -1,0 +1,72 @@
+<section class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4">
+  <div>
+    <h1 class="h3 fw-bold mb-1">Categories</h1>
+    <p class="text-secondary mb-0">Use built-in defaults or create your own budgeting categories.</p>
+  </div>
+  <% if (!currentUser.isPremium) { %>
+    <div class="premium-chip">Premium unlocks custom categories</div>
+  <% } %>
+</section>
+
+<section class="row g-4">
+  <div class="col-lg-4">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <h2 class="h5 mb-3">Add category</h2>
+        <% if (!currentUser.isPremium) { %>
+          <div class="alert alert-warning">
+            Custom categories are a premium feature.
+            <a href="/account" class="alert-link">Upgrade from account settings</a>.
+          </div>
+        <% } %>
+        <form method="post" action="/categories" class="vstack gap-3">
+          <%- include('../partials/csrf-field') %>
+          <div>
+            <label class="form-label">Name</label>
+            <input name="name" class="form-control" value="<%= oldInput.name || '' %>" <%= currentUser.isPremium ? '' : 'disabled' %> />
+            <% if (validationErrors.name) { %><div class="form-error"><%= validationErrors.name %></div><% } %>
+          </div>
+          <div>
+            <label class="form-label">Description</label>
+            <textarea name="description" class="form-control" rows="3" <%= currentUser.isPremium ? '' : 'disabled' %>><%= oldInput.description || '' %></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" <%= currentUser.isPremium ? '' : 'disabled' %>>Save category</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-8">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table align-middle">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th class="text-end">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% categories.forEach((category) => { %>
+                <tr>
+                  <td class="fw-semibold"><%= category.name %></td>
+                  <td class="text-secondary"><%= category.description || 'No description' %></td>
+                  <td><span class="badge <%= category.isDefault ? 'text-bg-secondary' : 'text-bg-primary' %>"><%= category.isDefault ? 'Default' : 'Custom' %></span></td>
+                  <td class="text-end">
+                    <% if (!category.isDefault) { %>
+                      <button class="btn btn-sm btn-outline-danger js-delete-category" data-category-id="<%= category.id %>">Delete</button>
+                    <% } else { %>
+                      <span class="text-secondary small">Protected</span>
+                    <% } %>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

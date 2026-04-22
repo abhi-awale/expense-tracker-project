@@ -1,0 +1,93 @@
+<section class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4">
+  <div>
+    <h1 class="h3 fw-bold mb-1">Reports & insights</h1>
+    <p class="text-secondary mb-0">Explore category trends, daily spend movement, and high-level budget signals.</p>
+  </div>
+  <div class="d-flex gap-2">
+    <button
+      type="button"
+      class="btn btn-outline-primary js-export-report"
+      data-export-type="pdf"
+      <%= currentUser.isPremium ? '' : 'disabled' %>
+    >
+      Export PDF
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-dark js-export-report"
+      data-export-type="excel"
+      <%= currentUser.isPremium ? '' : 'disabled' %>
+    >
+      Export Excel
+    </button>
+  </div>
+</section>
+
+<% if (!currentUser.isPremium) { %>
+  <section class="card border-0 shadow-sm mb-4 premium-hero">
+    <div class="card-body d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
+      <div>
+        <h2 class="h5 mb-1">Premium exports are locked</h2>
+        <p class="mb-0 text-secondary">Upgrade once for INR <%= premiumPrice %> to export reports and unlock custom categories.</p>
+      </div>
+      <a href="/account" class="btn btn-primary">Upgrade now</a>
+    </div>
+  </section>
+<% } %>
+
+<section class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <form id="reportFilters" class="row g-3">
+      <div class="col-md-4">
+        <label class="form-label">Month</label>
+        <input type="month" name="month" class="form-control" />
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Category</label>
+        <select name="categoryId" class="form-select">
+          <option value="">All categories</option>
+          <% categories.forEach((category) => { %>
+            <option value="<%= category.id %>"><%= category.name %></option>
+          <% }) %>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">From date</label>
+        <input type="date" name="startDate" class="form-control" />
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">To date</label>
+        <input type="date" name="endDate" class="form-control" />
+      </div>
+      <div class="col-md-12 d-flex align-items-end">
+        <button class="btn btn-primary w-100" type="submit">Refresh insights</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="row g-4 mb-4" id="reportStats">
+  <div class="col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><span class="small text-secondary">Total spent</span><div class="h4 mt-2 mb-0" data-stat="totalSpent">-</div></div></div></div>
+  <div class="col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><span class="small text-secondary">Entries</span><div class="h4 mt-2 mb-0" data-stat="expenseCount">-</div></div></div></div>
+  <div class="col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><span class="small text-secondary">Average</span><div class="h4 mt-2 mb-0" data-stat="averageSpend">-</div></div></div></div>
+  <div class="col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><span class="small text-secondary">Top category</span><div class="h4 mt-2 mb-0" data-stat="topCategory">-</div></div></div></div>
+</section>
+
+<section class="row g-4">
+  <div class="col-lg-6">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <h2 class="h5 mb-3">Category breakdown</h2>
+        <canvas id="categoryChart" height="240"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <h2 class="h5 mb-3">Daily trend</h2>
+        <canvas id="trendChart" height="240"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
