@@ -1,0 +1,236 @@
+<section class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4">
+  <div>
+    <h1 class="h3 fw-bold mb-1">Expenses</h1>
+    <p class="text-secondary mb-0">Capture spending, refine it with filters, and manage records quickly.</p>
+  </div>
+  <div class="d-flex gap-2">
+    <button type="button" class="btn btn-outline-primary js-expense-export" data-export-type="pdf" <%= currentUser.isPremium ? '' : 'disabled' %>>
+      Export PDF
+    </button>
+    <button type="button" class="btn btn-outline-secondary js-expense-export" data-export-type="excel" <%= currentUser.isPremium ? '' : 'disabled' %>>
+      Export Excel
+    </button>
+  </div>
+</section>
+
+<% if (!currentUser.isPremium) { %>
+  <section class="card border-0 shadow-sm mb-4 premium-hero">
+    <div class="card-body d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
+      <div>
+        <h2 class="h5 mb-1">Premium expense exports are locked</h2>
+        <p class="mb-0 text-secondary">Upgrade to premium to download backend-generated PDF and Excel expense statements.</p>
+      </div>
+      <a href="/account" class="btn btn-primary">Upgrade now</a>
+    </div>
+  </section>
+<% } %>
+
+<section class="row g-4 mb-4">
+  <div class="col-lg-4">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body">
+        <h2 class="h5 mb-3">Add expense</h2>
+        <form method="post" action="/expenses" class="vstack gap-3">
+          <%- include('../partials/csrf-field') %>
+          <div>
+            <label class="form-label">Title</label>
+            <input name="title" class="form-control" value="<%= oldInput.title || '' %>" />
+            <% if (validationErrors.title) { %><div class="form-error"><%= validationErrors.title %></div><% } %>
+          </div>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Amount</label>
+              <input name="amount" type="number" step="0.01" class="form-control" value="<%= oldInput.amount || '' %>" />
+              <% if (validationErrors.amount) { %><div class="form-error"><%= validationErrors.amount %></div><% } %>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Date</label>
+              <input name="expenseDate" type="date" class="form-control" value="<%= oldInput.expenseDate || '' %>" />
+              <% if (validationErrors.expenseDate) { %><div class="form-error"><%= validationErrors.expenseDate %></div><% } %>
+            </div>
+          </div>
+          <div>
+            <label class="form-label">Category</label>
+            <select name="categoryId" class="form-select">
+              <option value="">Choose category</option>
+              <% categories.forEach((category) => { %>
+                <option value="<%= category.id %>" <%= oldInput.categoryId == category.id ? 'selected' : '' %>><%= category.name %></option>
+              <% }) %>
+            </select>
+            <% if (validationErrors.categoryId) { %><div class="form-error"><%= validationErrors.categoryId %></div><% } %>
+          </div>
+          <div>
+            <label class="form-label">Notes</label>
+            <textarea name="notes" class="form-control" rows="3"><%= oldInput.notes || '' %></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Save expense</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-8">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <form id="expenseFilters" class="row g-3 mb-4" method="get" action="/expenses">
+          <div class="col-md-4">
+            <label class="form-label">Search</label>
+            <input name="search" class="form-control" value="<%= filters.search %>" placeholder="Search titles" />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Month</label>
+            <input name="month" type="month" class="form-control" value="<%= filters.month %>" />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">From date</label>
+            <input name="startDate" type="date" class="form-control" value="<%= filters.startDate %>" />
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">To date</label>
+            <input name="endDate" type="date" class="form-control" value="<%= filters.endDate %>" />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Category</label>
+            <select name="categoryId" class="form-select">
+              <option value="">All categories</option>
+              <% categories.forEach((category) => { %>
+                <option value="<%= category.id %>" <%= String(filters.categoryId) === String(category.id) ? 'selected' : '' %>><%= category.name %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="col-md-1">
+            <label class="form-label">Limit</label>
+            <select name="limit" class="form-select">
+              <% [10, 25, 50].forEach((option) => { %>
+                <option value="<%= option %>" <%= Number(filters.limit) === option ? 'selected' : '' %>><%= option %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Sort by</label>
+            <select name="sortBy" class="form-select">
+              <% ['expenseDate', 'amount', 'title'].forEach((field) => { %>
+                <option value="<%= field %>" <%= filters.sortBy === field ? 'selected' : '' %>><%= field %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Order</label>
+            <select name="sortOrder" class="form-select">
+              <% ['DESC', 'ASC'].forEach((order) => { %>
+                <option value="<%= order %>" <%= filters.sortOrder === order ? 'selected' : '' %>><%= order %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="col-md-6 d-flex align-items-end gap-2">
+            <button type="submit" class="btn btn-primary w-100">Apply</button>
+            <a href="/expenses" class="btn btn-outline-secondary">Reset</a>
+          </div>
+        </form>
+
+        <div class="table-responsive">
+          <table class="table align-middle">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th class="text-end">Amount</th>
+                <th class="text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (expenses.length === 0) { %>
+                <tr><td colspan="5" class="text-center text-secondary py-4">No expenses matched your filters.</td></tr>
+              <% } %>
+              <% expenses.forEach((expense) => { %>
+                <tr>
+                  <td>
+                    <strong><%= expense.title %></strong>
+                    <% if (expense.notes) { %><div class="small text-secondary"><%= expense.notes %></div><% } %>
+                  </td>
+                  <td><span class="badge text-bg-light"><%= expense.Category.name %></span></td>
+                  <td><%= expense.expenseDate %></td>
+                  <td class="text-end fw-semibold"><%= helpers.formatCurrency(expense.amount) %></td>
+                  <td class="text-end">
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-primary js-edit-expense"
+                      data-expense-id="<%= expense.id %>"
+                      data-title="<%= expense.title %>"
+                      data-amount="<%= expense.amount %>"
+                      data-date="<%= expense.expenseDate %>"
+                      data-category-id="<%= expense.categoryId %>"
+                      data-notes="<%= expense.notes || '' %>"
+                    >
+                      Edit
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-danger js-delete-expense" data-expense-id="<%= expense.id %>">Delete</button>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center pt-3">
+          <span class="text-secondary small">Page <%= pagination.currentPage %> of <%= pagination.totalPages %> (<%= pagination.totalItems %> items)</span>
+          <div class="d-flex gap-2">
+            <% if (pagination.hasPrevious) { %>
+              <a class="btn btn-sm btn-outline-secondary" href="?page=<%= pagination.currentPage - 1 %>&limit=<%= filters.limit %>&search=<%= encodeURIComponent(filters.search) %>&month=<%= filters.month %>&startDate=<%= filters.startDate %>&endDate=<%= filters.endDate %>&categoryId=<%= filters.categoryId %>&sortBy=<%= filters.sortBy %>&sortOrder=<%= filters.sortOrder %>">Previous</a>
+            <% } %>
+            <% if (pagination.hasNext) { %>
+              <a class="btn btn-sm btn-outline-secondary" href="?page=<%= pagination.currentPage + 1 %>&limit=<%= filters.limit %>&search=<%= encodeURIComponent(filters.search) %>&month=<%= filters.month %>&startDate=<%= filters.startDate %>&endDate=<%= filters.endDate %>&categoryId=<%= filters.categoryId %>&sortBy=<%= filters.sortBy %>&sortOrder=<%= filters.sortOrder %>">Next</a>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="modal fade" id="expenseModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="expenseEditForm">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <div class="modal-header">
+          <h2 class="modal-title fs-5">Edit expense</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="expenseId" />
+          <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input name="title" class="form-control" />
+          </div>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Amount</label>
+              <input name="amount" type="number" step="0.01" class="form-control" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Date</label>
+              <input name="expenseDate" type="date" class="form-control" />
+            </div>
+          </div>
+          <div class="mt-3">
+            <label class="form-label">Category</label>
+            <select name="categoryId" class="form-select">
+              <% categories.forEach((category) => { %>
+                <option value="<%= category.id %>"><%= category.name %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="mt-3">
+            <label class="form-label">Notes</label>
+            <textarea name="notes" class="form-control" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

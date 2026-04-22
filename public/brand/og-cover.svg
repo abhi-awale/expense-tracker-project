@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f2841"/>
+      <stop offset="100%" stop-color="#214b73"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0c394"/>
+      <stop offset="100%" stop-color="#d4a373"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1040" cy="120" r="180" fill="rgba(255,255,255,0.05)"/>
+  <circle cx="120" cy="520" r="140" fill="rgba(255,255,255,0.04)"/>
+  <rect x="80" y="78" width="1040" height="474" rx="36" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.08)"/>
+  <rect x="126" y="140" width="112" height="112" rx="28" fill="rgba(255,255,255,0.1)"/>
+  <path d="M151 187c17-18 37-27 60-27 12 0 24 4 35 11" fill="none" stroke="url(#accent)" stroke-linecap="round" stroke-width="8"/>
+  <path d="M170 185l16 15 28-31" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+  <rect x="160" y="208" width="10" height="18" rx="5" fill="#fff"/>
+  <rect x="181" y="194" width="10" height="32" rx="5" fill="#fff"/>
+  <rect x="202" y="178" width="10" height="48" rx="5" fill="url(#accent)"/>
+  <text x="280" y="186" fill="#f0c394" font-family="Arial, sans-serif" font-size="28" letter-spacing="4">EXPENSEPILOT</text>
+  <text x="126" y="320" fill="#fff" font-family="Arial, sans-serif" font-size="62" font-weight="700">Secure expense tracking</text>
+  <text x="126" y="392" fill="#d7e6f4" font-family="Arial, sans-serif" font-size="62" font-weight="700">with professional exports</text>
+  <text x="126" y="458" fill="#d7e6f4" font-family="Arial, sans-serif" font-size="28">JWT auth, premium PDF and Excel reports, category insights, and production-grade protections.</text>
+  <rect x="126" y="492" width="230" height="18" rx="9" fill="rgba(255,255,255,0.14)"/>
+  <rect x="126" y="492" width="166" height="18" rx="9" fill="url(#accent)"/>
+  <text x="378" y="507" fill="#fff" font-family="Arial, sans-serif" font-size="20">Trusted flow from dashboard to export</text>
+</svg>

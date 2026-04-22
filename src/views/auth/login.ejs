@@ -1,0 +1,29 @@
+<section class="row justify-content-center">
+  <div class="col-lg-5">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4 p-lg-5">
+        <span class="badge text-bg-primary mb-3">Welcome back</span>
+        <h1 class="h3 fw-bold mb-2">Login to ExpensePilot</h1>
+        <p class="text-secondary mb-4">Track every expense, stay on budget, and get actionable insights.</p>
+        <form method="post" action="/auth/login" class="vstack gap-3">
+          <%- include('../partials/csrf-field') %>
+          <div>
+            <label class="form-label">Email</label>
+            <input name="email" type="email" class="form-control" value="<%= oldInput.email || '' %>" />
+            <% if (validationErrors.email) { %><div class="form-error"><%= validationErrors.email %></div><% } %>
+          </div>
+          <div>
+            <label class="form-label">Password</label>
+            <input name="password" type="password" class="form-control" />
+            <% if (validationErrors.password) { %><div class="form-error"><%= validationErrors.password %></div><% } %>
+          </div>
+          <div class="d-flex justify-content-end">
+            <a href="/auth/forgot-password" class="small">Forgot password?</a>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg">Login</button>
+          <p class="mb-0 text-secondary">No account? <a href="/auth/register">Create one</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

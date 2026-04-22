@@ -1,0 +1,37 @@
+<section class="row justify-content-center">
+  <div class="col-lg-6">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4 p-lg-5">
+        <span class="badge text-bg-success mb-3">Start now</span>
+        <h1 class="h3 fw-bold mb-2">Create your account</h1>
+        <p class="text-secondary mb-4">Get category-based tracking, rich filtering, and monthly insights out of the box.</p>
+        <form method="post" action="/auth/register" class="row g-3">
+          <%- include('../partials/csrf-field') %>
+          <div class="col-md-6">
+            <label class="form-label">Full name</label>
+            <input name="name" class="form-control" value="<%= oldInput.name || '' %>" />
+            <% if (validationErrors.name) { %><div class="form-error"><%= validationErrors.name %></div><% } %>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Email</label>
+            <input name="email" type="email" class="form-control" value="<%= oldInput.email || '' %>" />
+            <% if (validationErrors.email) { %><div class="form-error"><%= validationErrors.email %></div><% } %>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Password</label>
+            <input name="password" type="password" class="form-control" />
+            <% if (validationErrors.password) { %><div class="form-error"><%= validationErrors.password %></div><% } %>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Confirm password</label>
+            <input name="confirmPassword" type="password" class="form-control" />
+            <% if (validationErrors.confirmPassword) { %><div class="form-error"><%= validationErrors.confirmPassword %></div><% } %>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary btn-lg">Create account</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

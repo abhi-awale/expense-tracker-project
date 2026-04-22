@@ -1,48 +1,33 @@
-const Jwt = require("jsonwebtoken");
-const {jwt} = require('../config/env.config');
+const jwt = require('jsonwebtoken');
+const env = require('../config/env');
 
-const ACCESS_TOKEN_SECRET = jwt.accessTokenSecret;
-const REFRESH_TOKEN_SECRET = jwt.refreshTokenSecret;
+const AUTH_COOKIE = 'expensepilot_token';
+const COOKIE_MAX_AGE = 1000 * 60 * 60 * 12;
 
-const ACCESS_TOKEN_EXPIRES = jwt.accessTokenExpiry;
-const REFRESH_TOKEN_EXPIRES = jwt.refreshTokenExpiry;
+const signAuthToken = (user) =>
+  jwt.sign(
+    {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    },
+    env.jwtSecret,
+    { expiresIn: '12h' }
+  );
 
-function generateAccessToken(payload) {
-  return Jwt.sign(payload, ACCESS_TOKEN_SECRET, {
-    expiresIn: ACCESS_TOKEN_EXPIRES
-  });
-}
+const verifyAuthToken = (token) => jwt.verify(token, env.jwtSecret);
 
-function generateRefreshToken(payload) {
-  return Jwt.sign(payload, REFRESH_TOKEN_SECRET, {
-    expiresIn: REFRESH_TOKEN_EXPIRES
-  });
-}
-
-function verifyAccessToken(token) {
-  try {
-    return Jwt.verify(token, ACCESS_TOKEN_SECRET);
-  } catch (error) {
-    return null;
-  }
-}
-
-function verifyRefreshToken(token) {
-  try {
-    return Jwt.verify(token, REFRESH_TOKEN_SECRET);
-  } catch (error) {
-    return null;
-  }
-}
-
-function decodeToken(token) {
-  return Jwt.decode(token);
-}
+const authCookieOptions = {
+  httpOnly: true,
+  sameSite: 'lax',
+  secure: env.nodeEnv === 'production',
+  maxAge: COOKIE_MAX_AGE,
+};
 
 module.exports = {
-  generateAccessToken,
-  generateRefreshToken,
-  verifyAccessToken,
-  verifyRefreshToken,
-  decodeToken
+  AUTH_COOKIE,
+  COOKIE_MAX_AGE,
+  signAuthToken,
+  verifyAuthToken,
+  authCookieOptions,
 };
